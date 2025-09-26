@@ -3,13 +3,11 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Checkbox } from "./ui/checkbox";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { User, Mail, Lock, MapPin, Calendar as CalendarIcon, Eye, EyeOff, CheckCircle, ChevronDown, FileText, CreditCard } from "lucide-react";
+import { User, Mail, Lock, MapPin, Calendar as CalendarIcon, Eye, EyeOff, CheckCircle, FileText, CreditCard } from "lucide-react";
 import { format } from "date-fns";
 
 const cn = (...classes: (string | undefined)[]) => classes.filter(Boolean).join(' ');
@@ -43,7 +41,6 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
     e.preventDefault();
     setIsSubmitted(true);
     
-    // Simulate account creation
     setTimeout(() => {
       const userData = {
         username: formData.username,
@@ -176,23 +173,22 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Country Text Input */}
                   <div>
                     <Label htmlFor="country" className="text-white">Country *</Label>
-                    <Select onValueChange={(value) => handleInputChange('country', value)}>
-                      <SelectTrigger className="bg-gray-700 border-gray-600 text-white mt-2 focus:border-green-500 focus:ring-green-500/30">
-                        <SelectValue placeholder="Select country" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-gray-800 border-gray-600">
-                        <SelectItem value="us" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">United States</SelectItem>
-                        <SelectItem value="uk" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">United Kingdom</SelectItem>
-                        <SelectItem value="ca" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">Canada</SelectItem>
-                        <SelectItem value="au" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">Australia</SelectItem>
-                        <SelectItem value="de" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">Germany</SelectItem>
-                        <SelectItem value="fr" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">France</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <div className="relative mt-2">
+                      <Input
+                        id="country"
+                        value={formData.country}
+                        onChange={(e) => handleInputChange('country', e.target.value)}
+                        className="bg-gray-700 border-gray-600 text-white pl-3"
+                        placeholder="Enter your country"
+                        required
+                      />
+                    </div>
                   </div>
 
+                  {/* Date of Birth */}
                   <div>
                     <Label htmlFor="dateOfBirth" className="text-white">Date of Birth *</Label>
                     <Popover>
@@ -222,7 +218,7 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                   </div>
                 </div>
 
-                {/* Terms and Age Confirmation */}
+                {/* Terms */}
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <Checkbox
@@ -252,7 +248,7 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                   </div>
                 </div>
 
-                {/* ID & Address Section - Required */}
+                {/* ID & Address Section */}
                 <div className="border-t border-gray-600 pt-6">
                   <h3 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
                     <FileText className="w-5 h-5" />
@@ -261,18 +257,19 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                   
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* ID Type Text Input */}
                       <div>
                         <Label htmlFor="idType" className="text-white">ID Type *</Label>
-                        <Select onValueChange={(value) => handleInputChange('idType', value)} required>
-                          <SelectTrigger className="bg-gray-700 border-gray-600 text-white mt-2 focus:border-green-500 focus:ring-green-500/30">
-                            <SelectValue placeholder="Select ID type" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-gray-800 border-gray-600">
-                            <SelectItem value="passport" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">Passport</SelectItem>
-                            <SelectItem value="drivers_license" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">Driver's License</SelectItem>
-                            <SelectItem value="national_id" className="text-white hover:bg-gray-700 focus:bg-gray-700 focus:text-white">National ID</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <div className="relative mt-2">
+                          <Input
+                            id="idType"
+                            value={formData.idType}
+                            onChange={(e) => handleInputChange('idType', e.target.value)}
+                            className="bg-gray-700 border-gray-600 text-white pl-3"
+                            placeholder="Enter your ID type (e.g. Passport)"
+                            required
+                          />
+                        </div>
                       </div>
 
                       <div>
