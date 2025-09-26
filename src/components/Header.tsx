@@ -99,7 +99,7 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                     onClick={onLogout}
                     className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white font-bold p-2"
                   >
-                    <LogOut className="w-4 h-4" />
+                    <LogOut className="w-4 h-4" strokeWidth={3} />
                   </Button>
                 </>
               ) : (

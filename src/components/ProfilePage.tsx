@@ -1140,7 +1140,7 @@ export function ProfilePage({ user, onUpdateBalance }: ProfilePageProps) {
               <Button
                 variant="outline"
                 onClick={() => setEditProfileOpen(false)}
-                className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-700"
+                className="flex-1 border-gray-600 text-black hover:bg-gray-700 hover:text-white"
               >
                 Cancel
               </Button>
@@ -1159,7 +1159,7 @@ export function ProfilePage({ user, onUpdateBalance }: ProfilePageProps) {
 
       {/* Account Settings Dialog */}
       <Dialog open={accountSettingsOpen} onOpenChange={setAccountSettingsOpen}>
-        <DialogContent className="bg-gray-800 border-gray-700 max-w-2xl" aria-describedby="account-settings-description">
+        <DialogContent className="bg-gray-800 border-gray-700 max-w-2xl max-h-[90vh] overflow-y-auto" aria-describedby="account-settings-description">
           <DialogHeader>
             <DialogTitle className="text-white flex items-center gap-2">
               <Settings className="w-5 h-5 text-blue-400" />
