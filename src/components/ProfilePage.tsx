@@ -794,7 +794,7 @@ export function ProfilePage({ user, onUpdateBalance }: ProfilePageProps) {
                         bet.status === 'Lost' ? 'text-red-400' :
                         'text-gray-400'
                       }>
-                        {bet.payout > 0 ? `$${bet.payout.toFixed(2)}` : '-'}
+                        {bet.payout && bet.payout > 0 ? `$${bet.payout.toFixed(2)}` : '-'}
                       </TableCell>
                       <TableCell className="text-gray-400">
                         <div className="flex items-center gap-1">
