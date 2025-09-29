@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -20,8 +21,8 @@ interface SignUpPageProps {
 export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState<Date>();
-  const [isIdSectionOpen, setIsIdSectionOpen] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState<Date | undefined>();
+  const [dobInput, setDobInput] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -40,12 +41,12 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    
+
     setTimeout(() => {
       const userData = {
         username: formData.username,
         email: formData.email,
-        balance: 500.00,
+        balance: 500.0,
         isLoggedIn: true,
         dateOfBirth: dateOfBirth,
         country: formData.country,
@@ -64,7 +65,18 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const isFormValid = formData.agreeToTermsAndAge && formData.username && formData.email && formData.password && formData.confirmPassword && formData.country && dateOfBirth && formData.idType && formData.idNumber && formData.city && formData.postcode;
+  const isFormValid =
+    formData.agreeToTermsAndAge &&
+    formData.username &&
+    formData.email &&
+    formData.password &&
+    formData.confirmPassword &&
+    formData.country &&
+    dateOfBirth &&
+    formData.idType &&
+    formData.idNumber &&
+    formData.city &&
+    formData.postcode;
 
   if (isSubmitted) {
     return (
@@ -191,30 +203,53 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                   {/* Date of Birth */}
                   <div>
                     <Label htmlFor="dateOfBirth" className="text-white">Date of Birth *</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal mt-2 bg-gray-700 border-gray-600 text-white hover:bg-gray-600",
-                            !dateOfBirth && "text-gray-400"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {dateOfBirth ? format(dateOfBirth, "dd/MM/yyyy") : <span>DD/MM/YYYY</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0 bg-gray-700 border-gray-600" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={dateOfBirth}
-                          onSelect={setDateOfBirth}
-                          disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-                          initialFocus
-                          className="bg-gray-700 text-white"
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <div className="relative mt-2 flex items-center">
+                      <Input
+                        id="dateOfBirth"
+                        placeholder="DD/MM/YYYY"
+                        value={dobInput}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setDobInput(val);
+
+                          const parts = val.split("/");
+                          if (parts.length === 3) {
+                            const day = parseInt(parts[0], 10);
+                            const month = parseInt(parts[1], 10) - 1;
+                            const year = parseInt(parts[2], 10);
+                            const parsedDate = new Date(year, month, day);
+                            if (!isNaN(parsedDate.getTime())) {
+                              setDateOfBirth(parsedDate);
+                            }
+                          }
+                        }}
+                        className="bg-gray-700 border-gray-600 text-white pr-10"
+                        required
+                      />
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="absolute right-0 h-full px-3 flex items-center bg-gray-700 border-gray-600 hover:bg-gray-600"
+                          >
+                            <CalendarIcon className="w-4 h-4 text-white" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0 bg-gray-700 border-gray-600" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={dateOfBirth}
+                            onSelect={(date) => {
+                              setDateOfBirth(date);
+                              if (date) setDobInput(format(date, "dd/MM/yyyy"));
+                            }}
+                            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+                            initialFocus
+                            className="bg-gray-700 text-white"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
                   </div>
                 </div>
 
@@ -254,10 +289,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                     <FileText className="w-5 h-5" />
                     ID & Address Information
                   </h3>
-                  
                   <div className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {/* ID Type Text Input */}
                       <div>
                         <Label htmlFor="idType" className="text-white">ID Type *</Label>
                         <div className="relative mt-2">
@@ -341,14 +374,16 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
 
                 <div className="text-center">
                   <p className="text-gray-400">
-                    Already have an account?{" "}
-                    <button
-                      type="button"
-                      onClick={() => onPageChange('signin')}
-                      className="text-green-400 hover:text-green-300 font-bold"
-                    >
-                      Sign In
-                    </button>
+                    <span>
+                      Already have an account?{" "}
+                      <button
+                        type="button"
+                        onClick={() => onPageChange('signin')}
+                        className="text-green-400 hover:text-green-300 font-bold"
+                      >
+                        Sign In
+                      </button>
+                    </span>
                   </p>
                 </div>
               </form>
@@ -379,3 +414,4 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
     </div>
   );
 }
+
