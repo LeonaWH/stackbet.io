@@ -89,7 +89,7 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                 <p className="text-gray-400">Sign in to your stackbet.io account</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" data-testid="signin-form" aria-label="Sign in form">
                 <div>
                   <Label htmlFor="email" className="text-white">Email Address</Label>
                   <div className="relative mt-2">
@@ -101,6 +101,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                       className="bg-gray-700 border-gray-600 text-white pl-10"
                       placeholder="your@email.com"
                       required
+                      data-testid="email-input"
+                      aria-label="Email address"
                     />
                     <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                   </div>
@@ -117,12 +119,16 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                       className="bg-gray-700 border-gray-600 text-white pl-10 pr-10"
                       placeholder="Enter your password"
                       required
+                      data-testid="password-input"
+                      aria-label="Password"
                     />
                     <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                      data-testid="toggle-password-visibility"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -136,6 +142,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                       checked={formData.rememberMe}
                       onCheckedChange={(checked) => handleInputChange('rememberMe', checked)}
                       className="border-gray-600 data-[state=checked]:bg-green-600 data-[state=checked]:border-green-600"
+                      data-testid="remember-me-checkbox"
+                      aria-label="Remember me"
                     />
                     <Label htmlFor="remember" className="text-sm text-gray-300">
                       Remember me
@@ -146,6 +154,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                       <button
                         type="button"
                         className="text-sm text-green-400 hover:text-green-300"
+                        data-testid="forgot-password-link"
+                        aria-label="Forgot password"
                       >
                         Forgot password?
                       </button>
@@ -210,6 +220,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                 <Button 
                   type="submit"
                   className="w-full bg-green-600 hover:bg-green-700 text-white py-3 font-bold text-base"
+                  data-testid="signin-button"
+                  aria-label="Sign in to your account"
                 >
                   Sign In
                 </Button>
@@ -221,6 +233,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                       type="button"
                       onClick={() => onPageChange('signup')}
                       className="text-green-400 hover:text-green-300 font-bold"
+                      data-testid="signup-link"
+                      aria-label="Go to sign up page"
                     >
                       Sign Up
                     </button>
@@ -244,6 +258,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                     type="button"
                     variant="outline"
                     className="border-gray-600 text-black hover:bg-gray-700 hover:text-white bg-white"
+                    data-testid="google-signin-button"
+                    aria-label="Sign in with Google"
                   >
                     <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                       <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -257,6 +273,8 @@ export function SignInPage({ onPageChange, onLogin }: SignInPageProps) {
                     type="button"
                     variant="outline"
                     className="border-gray-600 text-black hover:bg-gray-700 hover:text-white bg-white"
+                    data-testid="facebook-signin-button"
+                    aria-label="Sign in with Facebook"
                   >
                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>

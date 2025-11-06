@@ -38,14 +38,14 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
             {/* Logo */}
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-xl sm:text-2xl font-bold text-green-400">
+                <h1 className="text-xl sm:text-2xl font-bold text-green-400" data-testid="site-logo">
                   StackBet<span className="text-yellow-400">.io</span>
                 </h1>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:block">
+            <nav className="hidden md:block" aria-label="Main navigation">
               <div className="ml-10 flex items-baseline space-x-4">
                 {navItems.map((item) => (
                   <button
@@ -56,6 +56,9 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                         ? 'bg-green-600 text-white shadow-md'
                         : 'text-gray-200 hover:bg-gray-700 hover:text-white'
                     }`}
+                    data-testid={`nav-${item.id}`}
+                    aria-label={`Navigate to ${item.label}`}
+                    aria-current={currentPage === item.id ? 'page' : undefined}
                   >
                     {item.label}
                   </button>
@@ -68,7 +71,7 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
               {user?.isLoggedIn ? (
                 <>
                   {/* Wallet Balance - Hidden on small screens */}
-                  <div className="hidden lg:flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-lg border border-gray-700">
+                  <div className="hidden lg:flex items-center space-x-2 bg-gray-800 px-3 py-2 rounded-lg border border-gray-700" data-testid="wallet-balance" aria-label="Wallet balance">
                     <Wallet className="w-4 h-4 text-green-400" />
                     <span className="text-white font-bold">${user.balance?.toFixed(2) || '0.00'}</span>
                   </div>
@@ -78,6 +81,8 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                     size="sm"
                     onClick={() => handleNavigation('profile')}
                     className="bg-green-600 hover:bg-green-700 text-white font-bold p-2 shadow-md"
+                    data-testid="profile-button"
+                    aria-label="Go to profile"
                   >
                     <User className="w-4 h-4" />
                   </Button>
@@ -87,6 +92,8 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                     size="sm"
                     onClick={onToggleSidebar}
                     className="bg-green-600 hover:bg-green-700 text-white font-bold flex items-center space-x-2 shadow-md"
+                    data-testid="bet-slip-button"
+                    aria-label="Open bet slip"
                   >
                     <Wallet className="w-4 h-4" />
                     <span className="hidden sm:inline">Bet Slip</span>
@@ -98,6 +105,8 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                     size="sm"
                     onClick={onLogout}
                     className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white font-bold p-2"
+                    data-testid="logout-button"
+                    aria-label="Log out"
                   >
                     <LogOut className="w-4 h-4" strokeWidth={3} />
                   </Button>
@@ -107,6 +116,8 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                   size="sm"
                   onClick={() => handleNavigation('signin')}
                   className="bg-green-600 hover:bg-green-700 text-white font-bold shadow-md px-3 sm:px-4"
+                  data-testid="header-signin-button"
+                  aria-label="Sign in"
                 >
                   <span className="hidden sm:inline">Sign In</span>
                   <span className="sm:hidden">Sign In</span>
@@ -151,6 +162,9 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                       ? 'bg-green-600 text-white shadow-md'
                       : 'text-gray-200 hover:bg-gray-700 hover:text-white'
                   }`}
+                  data-testid={`mobile-nav-${item.id}`}
+                  aria-label={`Navigate to ${item.label}`}
+                  aria-current={currentPage === item.id ? 'page' : undefined}
                 >
                   {item.label}
                 </button>
@@ -158,7 +172,7 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
               
               {/* Mobile Wallet Balance */}
               {user?.isLoggedIn && (
-                <div className="flex items-center justify-between bg-gray-800 px-4 py-3 rounded-lg border border-gray-700 mt-3">
+                <div className="flex items-center justify-between bg-gray-800 px-4 py-3 rounded-lg border border-gray-700 mt-3" data-testid="mobile-wallet-balance" aria-label="Wallet balance">
                   <div className="flex items-center space-x-2">
                     <Wallet className="w-4 h-4 text-green-400" />
                     <span className="text-gray-300">Balance:</span>
@@ -174,6 +188,8 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                     variant="outline"
                     onClick={onLogout}
                     className="w-full border-red-900 text-red-400 hover:bg-red-500 hover:text-white font-bold justify-center"
+                    data-testid="mobile-logout-button"
+                    aria-label="Log out"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Logout

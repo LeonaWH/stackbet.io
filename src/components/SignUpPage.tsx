@@ -108,7 +108,7 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                 <p className="text-gray-400">Create your account and start betting today</p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" data-testid="signup-form" aria-label="Sign up form">
                 {/* Basic Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -121,6 +121,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         className="bg-gray-700 border-gray-600 text-white pl-10"
                         placeholder="Choose a username"
                         required
+                        data-testid="username-input"
+                        aria-label="Username"
                       />
                       <User className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     </div>
@@ -137,6 +139,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         className="bg-gray-700 border-gray-600 text-white pl-10"
                         placeholder="your@email.com"
                         required
+                        data-testid="signup-email-input"
+                        aria-label="Email address"
                       />
                       <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     </div>
@@ -155,12 +159,16 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         className="bg-gray-700 border-gray-600 text-white pl-10 pr-10"
                         placeholder="Create a strong password"
                         required
+                        data-testid="signup-password-input"
+                        aria-label="Password"
                       />
                       <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
                         className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                        data-testid="signup-toggle-password-visibility"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -178,6 +186,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         className="bg-gray-700 border-gray-600 text-white pl-10"
                         placeholder="Confirm your password"
                         required
+                        data-testid="confirm-password-input"
+                        aria-label="Confirm password"
                       />
                       <Lock className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                     </div>
@@ -196,6 +206,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         className="bg-gray-700 border-gray-600 text-white pl-3"
                         placeholder="Enter your country"
                         required
+                        data-testid="country-input"
+                        aria-label="Country"
                       />
                     </div>
                   </div>
@@ -225,6 +237,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         }}
                         className="bg-gray-700 border-gray-600 text-white pr-10"
                         required
+                        data-testid="dob-input"
+                        aria-label="Date of birth"
                       />
                       <Popover>
                         <PopoverTrigger asChild>
@@ -261,6 +275,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                       checked={formData.agreeToTermsAndAge}
                       onCheckedChange={(checked) => handleInputChange('agreeToTermsAndAge', !!checked)}
                       className="border-gray-600 data-[state=checked]:bg-green-600 data-[state=checked]:border-green-600 mt-1"
+                      data-testid="terms-checkbox"
+                      aria-label="Agree to terms and conditions"
                     />
                     <Label htmlFor="termsAndAge" className="text-sm text-gray-300 leading-relaxed">
                       I confirm that I am 18+ and agree to the{" "}
@@ -301,6 +317,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                             className="bg-gray-700 border-gray-600 text-white pl-3"
                             placeholder="Enter your ID type (e.g. Passport)"
                             required
+                            data-testid="id-type-input"
+                            aria-label="ID type"
                           />
                         </div>
                       </div>
@@ -315,6 +333,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                             className="bg-gray-700 border-gray-600 text-white pl-10"
                             placeholder="AB1234567"
                             required
+                            data-testid="id-number-input"
+                            aria-label="ID number"
                           />
                           <CreditCard className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                         </div>
@@ -346,6 +366,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                           className="bg-gray-700 border-gray-600 text-white mt-2"
                           placeholder="Sampleville"
                           required
+                          data-testid="city-input"
+                          aria-label="City"
                         />
                       </div>
 
@@ -358,6 +380,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                           className="bg-gray-700 border-gray-600 text-white mt-2"
                           placeholder="12345"
                           required
+                          data-testid="postcode-input"
+                          aria-label="Postcode or ZIP code"
                         />
                       </div>
                     </div>
@@ -368,6 +392,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                   type="submit"
                   className="w-full bg-green-600 hover:bg-green-700 text-white py-3 font-bold text-base disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={!isFormValid}
+                  data-testid="signup-button"
+                  aria-label="Create account"
                 >
                   Create Account
                 </Button>
@@ -380,6 +406,8 @@ export function SignUpPage({ onPageChange, onLogin }: SignUpPageProps) {
                         type="button"
                         onClick={() => onPageChange('signin')}
                         className="text-green-400 hover:text-green-300 font-bold"
+                        data-testid="signin-link"
+                        aria-label="Go to sign in page"
                       >
                         Sign In
                       </button>
