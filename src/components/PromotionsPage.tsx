@@ -58,7 +58,7 @@ export function PromotionsPage({ user, referralCode }: PromotionsPageProps) {
     {
       id: 4,
       title: "Invite Friends & Earn",
-      description: "Get 100 bonus credits for each friend who joins",
+      description: "Get 100 bonus credits for each friend",
       terms: "Share your referral code and get bonus credits",
       badge: "Referral",
       color: "bg-gradient-to-r from-blue-600 to-blue-700",
@@ -129,13 +129,6 @@ export function PromotionsPage({ user, referralCode }: PromotionsPageProps) {
                   >
                     {user?.isLoggedIn ? 'Active' : 'Claim Bonus'}
                   </Button>
-                    <Button 
-                      size="lg"
-                      variant="outline"
-                      className="border-white text-green-800 hover:bg-white hover:text-green-600 px-8 py-4 font-bold"
-                    >
-                      Learn More
-                    </Button>
                   </div>
                 </div>
                 <div className="text-8xl">🎁</div>
