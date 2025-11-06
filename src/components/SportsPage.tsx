@@ -7,7 +7,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { AdBanner } from "./AdBanner";
-import { Calendar, Clock, Plus, TrendingUp, Users, Zap, Play, Star, Trophy, Target } from "lucide-react";
+import { BetSelectionModal } from "./BetSelectionModal";
+import { Calendar, Clock, Plus, TrendingUp, Users, Zap, Play, Trophy, Target } from "lucide-react";
+
+
 
 interface SportsPageProps {
   onAddBet: (bet: {
@@ -17,13 +20,16 @@ interface SportsPageProps {
     odds: number;
     type: string;
   }) => void;
+  onOpenBetSlip: () => void;
   isLoggedIn?: boolean;
   onPageChange?: (page: string) => void;
 }
 
-export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPageProps) {
+export function SportsPage({ onAddBet, onOpenBetSlip, isLoggedIn, onPageChange }: SportsPageProps) {
   const [selectedSport, setSelectedSport] = useState("football");
   const [selectedEsport, setSelectedEsport] = useState("csgo");
+  const [betModalOpen, setBetModalOpen] = useState(false);
+  const [selectedMatch, setSelectedMatch] = useState<any>(null);
 
   // Featured matches for carousel
   const featuredMatches = [
@@ -53,29 +59,6 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
     }
   ];
 
-  // Casino games data
-  const casinoGames = [
-    {
-      name: "Blackjack",
-      image: "https://images.unsplash.com/photo-1618304925090-b68a8c744cbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNpbm8lMjBibGFja2phY2slMjBjYXJkcyUyMHBva2VyfGVufDF8fHx8MTc1NzY3ODk0Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      provider: "Evolution"
-    },
-    {
-      name: "Mega Slots",
-      image: "https://images.unsplash.com/photo-1603410246916-9b2ca82acdd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbG90JTIwbWFjaGluZSUyMGNhc2lub3xlbnwxfHx8fDE3NTc2MDg4NTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      provider: "NetEnt"
-    },
-    {
-      name: "Roulette Live",
-      image: "https://images.unsplash.com/photo-1592602944193-0848995f4b5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyb3VsZXR0ZSUyMGNhc2lubyUyMHdoZWVsfGVufDF8fHx8MTc1NzU5ODE3Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      provider: "Evolution"
-    },
-    {
-      name: "Texas Hold'em",
-      image: "https://images.unsplash.com/photo-1618304925090-b68a8c744cbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNpbm8lMjBibGFja2phY2slMjBjYXJkcyUyMHBva2VyfGVufDF8fHx8MTc1NzY3ODk0Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      provider: "NetEnt"
-    }
-  ];
 
   // Live matches for sidebar
   const liveMatches = [
@@ -292,6 +275,15 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
     });
   };
 
+  const handleBetButtonClick = (match: any) => {
+    if (!isLoggedIn && onPageChange) {
+      onPageChange('signin');
+      return;
+    }
+    setSelectedMatch(match);
+    setBetModalOpen(true);
+  };
+
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {/* Hero Carousel */}
@@ -499,7 +491,10 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
                                       </Button>
                                     </TableCell>
                                     <TableCell className="text-center">
-                                      <Button className="bg-green-600 hover:bg-green-700 text-white font-bold">
+                                      <Button 
+                                        onClick={() => handleBetButtonClick(match)}
+                                        className="bg-green-600 hover:bg-green-700 text-white font-bold"
+                                      >
                                         <Target className="w-4 h-4 mr-1" />
                                         Bet
                                       </Button>
@@ -755,7 +750,10 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
                                     </Button>
                                   </TableCell>
                                   <TableCell className="text-center">
-                                    <Button className="bg-purple-600 hover:bg-purple-700 text-white font-bold">
+                                    <Button 
+                                      onClick={() => handleBetButtonClick(match)}
+                                      className="bg-purple-600 hover:bg-purple-700 text-white font-bold"
+                                    >
                                       <Target className="w-4 h-4 mr-1" />
                                       Bet
                                     </Button>
@@ -852,37 +850,6 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
               </Tabs>
             </section>
 
-            {/* Casino Games Section */}
-            <section className="mb-6 sm:mb-8">
-              <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                <Star className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
-                <h2 className="text-xl sm:text-2xl font-bold text-white">Casino Games</h2>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                {casinoGames.map((game, index) => (
-                  <Card key={index} className="bg-gray-800 border-gray-700 overflow-hidden group hover:border-yellow-500 transition-all duration-300 cursor-pointer">
-                    <div className="relative aspect-square">
-                      <ImageWithFallback
-                        src={game.image}
-                        alt={game.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <Button className="bg-yellow-600 hover:bg-yellow-700 text-black font-bold">
-                          <Play className="w-4 h-4 mr-2" />
-                          Play Now
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="p-3">
-                      <h3 className="font-bold text-white text-sm mb-1">{game.name}</h3>
-                      <p className="text-gray-400 text-xs">{game.provider}</p>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </section>
 
             {/* Ad Banner */}
             <AdBanner size="large" />
@@ -972,6 +939,16 @@ export function SportsPage({ onAddBet, isLoggedIn, onPageChange }: SportsPagePro
           </div>
         </div>
       </div>
+
+      {/* Bet Selection Modal */}
+      {selectedMatch && (
+        <BetSelectionModal
+          isOpen={betModalOpen}
+          onClose={() => setBetModalOpen(false)}
+          match={selectedMatch}
+          onSelectBet={handleAddBet}
+        />
+      )}
     </div>
   );
 }

@@ -520,15 +520,6 @@ export function ProfilePage({ user, onUpdateBalance }: ProfilePageProps) {
               
               <div className="space-y-2">
                 <Button 
-                  size="sm"
-                  onClick={() => setIsWithdrawFundsOpen(true)}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
-                >
-                  <ArrowUpRight className="w-4 h-4 mr-2" />
-                  Withdraw Funds
-                </Button>
-                
-                <Button 
                   variant="outline"
                   size="sm"
                   onClick={() => setIsTransactionHistoryOpen(true)}
@@ -601,10 +592,6 @@ export function ProfilePage({ user, onUpdateBalance }: ProfilePageProps) {
                 >
                   <Settings className="w-4 h-4 mr-2" />
                   Account Settings
-                </Button>
-                <Button variant="outline" className="w-full justify-start bg-white text-black hover:bg-gray-100 font-bold">
-                  <History className="w-4 h-4 mr-2" />
-                  Download History
                 </Button>
               </div>
             </div>

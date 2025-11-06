@@ -44,24 +44,28 @@ export function AddFundsPopup({ isOpen, onClose, onAddFunds }: AddFundsPopupProp
       name: "Credit/Debit Card",
       icon: <CreditCard className="w-5 h-5" />,
       description: "Visa, Mastercard, American Express",
+      disabled: false,
     },
     {
       id: "apple",
       name: "Apple Pay",
       icon: <Smartphone className="w-5 h-5" />,
-      description: "Touch ID or Face ID",
+      description: "Coming soon",
+      disabled: true,
     },
     {
       id: "google",
       name: "Google Pay",
       icon: <Smartphone className="w-5 h-5" />,
-      description: "Quick and secure",
+      description: "Coming soon",
+      disabled: true,
     },
     {
       id: "bank",
       name: "Bank Transfer",
       icon: <Building className="w-5 h-5" />,
       description: "Direct from your bank account",
+      disabled: false,
     },
   ];
 
@@ -257,14 +261,19 @@ export function AddFundsPopup({ isOpen, onClose, onAddFunds }: AddFundsPopupProp
                     value={method.id}
                     id={method.id}
                     className="border-gray-600 text-green-400"
+                    disabled={method.disabled}
                   />
                   <Label
                     htmlFor={method.id}
-                    className="flex items-center space-x-3 flex-1 cursor-pointer p-3 rounded-lg border border-gray-700 hover:bg-gray-800"
+                    className={`flex items-center space-x-3 flex-1 p-3 rounded-lg border border-gray-700 ${
+                      method.disabled 
+                        ? 'opacity-50 cursor-not-allowed' 
+                        : 'cursor-pointer hover:bg-gray-800'
+                    }`}
                   >
-                    <div className="text-green-400">{method.icon}</div>
+                    <div className={method.disabled ? "text-gray-500" : "text-green-400"}>{method.icon}</div>
                     <div className="flex-1">
-                      <div className="font-medium text-white">{method.name}</div>
+                      <div className={`font-medium ${method.disabled ? 'text-gray-500' : 'text-white'}`}>{method.name}</div>
                       <div className="text-sm text-gray-400">{method.description}</div>
                     </div>
                   </Label>

@@ -48,6 +48,7 @@ export default function App() {
   const [user, setUser] = useState<User>({ isLoggedIn: false });
   const [showCountryModal, setShowCountryModal] = useState(false);
   const [countryVerified, setCountryVerified] = useState(false);
+  const [referralCode] = useState("WELCOME" + Math.random().toString(36).substr(2, 6).toUpperCase());
 
   const handleAddBet = (bet: Bet) => {
     // Check if bet already exists
@@ -55,6 +56,10 @@ export default function App() {
     if (existingBet) return;
     
     setBets(prev => [...prev, bet]);
+    setIsBetSlipOpen(true);
+  };
+
+  const handleOpenBetSlip = () => {
     setIsBetSlipOpen(true);
   };
 
@@ -164,11 +169,11 @@ export default function App() {
 
     switch (currentPage) {
       case 'home':
-        return <HomePage onPageChange={setCurrentPage} isLoggedIn={user.isLoggedIn} />;
+        return <HomePage onPageChange={setCurrentPage} isLoggedIn={user.isLoggedIn} referralCode={referralCode} />;
       case 'sports':
-        return <SportsPage onAddBet={handleAddBet} isLoggedIn={user.isLoggedIn} onPageChange={setCurrentPage} />;
+        return <SportsPage onAddBet={handleAddBet} onOpenBetSlip={handleOpenBetSlip} isLoggedIn={user.isLoggedIn} onPageChange={setCurrentPage} />;
       case 'promotions':
-        return <PromotionsPage />;
+        return <PromotionsPage user={user} referralCode={referralCode} />;
       case 'profile':
         return user.isLoggedIn ? <ProfilePage user={user} onUpdateBalance={handleUpdateBalance} /> : <SignInPage onPageChange={setCurrentPage} onLogin={handleLogin} />;
       case 'about':

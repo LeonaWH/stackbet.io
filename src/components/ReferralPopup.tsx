@@ -9,10 +9,10 @@ import { toast } from "sonner@2.0.3";
 interface ReferralPopupProps {
   isOpen: boolean;
   onClose: () => void;
+  referralCode: string;
 }
 
-export function ReferralPopup({ isOpen, onClose }: ReferralPopupProps) {
-  const [referralCode] = useState("SPORTS" + Math.random().toString(36).substr(2, 6).toUpperCase());
+export function ReferralPopup({ isOpen, onClose, referralCode }: ReferralPopupProps) {
 
   const copyReferralCode = () => {
     navigator.clipboard.writeText(referralCode);

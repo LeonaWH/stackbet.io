@@ -63,12 +63,12 @@ export function AdBanner({ size, title, description, imageUrl, link }: AdBannerP
       description: "Live tournaments daily. Big prizes await!"
     },
     small: {
-      title: "Casino Games",
-      description: "Play slots, blackjack & more"
+      title: "Live Sports",
+      description: "Watch & Bet on Live Sports"
     },
     sidebar: {
-      title: "Live Casino",
-      description: "Play live dealer games now!"
+      title: "Live Betting",
+      description: "Bet on live matches now!"
     },
     footer: {
       title: "Responsible Gaming - Play Smart, Bet Responsibly",

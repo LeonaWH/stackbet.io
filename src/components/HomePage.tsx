@@ -10,9 +10,10 @@ import { useState } from "react";
 interface HomePageProps {
   onPageChange: (page: string) => void;
   isLoggedIn?: boolean;
+  referralCode: string;
 }
 
-export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
+export function HomePage({ onPageChange, isLoggedIn, referralCode }: HomePageProps) {
   const [isReferralOpen, setIsReferralOpen] = useState(false);
   
   const featuredSports = [
@@ -39,14 +40,6 @@ export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
       description: "French Open, Wimbledon",
       color: "from-yellow-600 to-yellow-700",
       borderColor: "border-yellow-500"
-    },
-    { 
-      name: "Casino", 
-      matches: 200, 
-      icon: "⭐", 
-      description: "Live Dealers, Slots, Blackjack",
-      color: "from-purple-600 to-purple-700",
-      borderColor: "border-purple-500"
     },
     { 
       name: "eSports", 
@@ -153,7 +146,7 @@ export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
           <h2 className="text-3xl font-bold text-center mb-12 text-white">
             Sports & Entertainment
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {featuredSports.map((sport) => (
               <Card
                 key={sport.name}
@@ -164,7 +157,7 @@ export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
                 <h3 className="font-bold text-white mb-1 text-sm">{sport.name}</h3>
                 <p className="text-white/80 text-xs mb-2">{sport.description}</p>
                 <p className="text-white/90 font-bold text-xs">
-                  {sport.matches} {sport.name === 'Casino' ? 'games' : 'live matches'}
+                  {sport.matches} live matches
                 </p>
               </Card>
             ))}
@@ -245,14 +238,8 @@ export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
             ))}
           </div>
           
-          {/* 4 Ads in Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <AdBanner 
-              size="small" 
-              title="Casino Games"
-              description="Slots & Table Games"
-              imageUrl="https://images.unsplash.com/photo-1603410246916-9b2ca82acdd7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNpbm8lMjBzbG90JTIwbWFjaGluZXxlbnwxfHx8fDE3NTc1NTM4Mzl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-            />
+          {/* Ads in Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <AdBanner 
               size="small" 
               title="VIP Program"
@@ -297,7 +284,7 @@ export function HomePage({ onPageChange, isLoggedIn }: HomePageProps) {
       </section>
 
       {/* Referral Popup */}
-      <ReferralPopup isOpen={isReferralOpen} onClose={() => setIsReferralOpen(false)} />
+      <ReferralPopup isOpen={isReferralOpen} onClose={() => setIsReferralOpen(false)} referralCode={referralCode} />
     </div>
   );
 }

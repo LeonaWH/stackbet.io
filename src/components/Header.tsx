@@ -119,6 +119,11 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
                 size="sm"
                 className="md:hidden text-white hover:bg-gray-700 p-2"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
+                data-testid="mobile-menu-toggle"
+                id="mobile-menu-toggle"
               >
                 {isMobileMenuOpen ? (
                   <X className="w-5 h-5" />
@@ -134,7 +139,7 @@ export function Header({ currentPage, onPageChange, onToggleSidebar, user, onLog
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50" onClick={() => setIsMobileMenuOpen(false)}>
-          <div className="fixed top-16 left-0 right-0 bg-black border-b border-green-500/20 shadow-xl">
+          <div id="mobile-menu" className="fixed top-16 left-0 right-0 bg-black border-b border-green-500/20 shadow-xl">
             <div className="px-4 py-2 space-y-1">
               {/* Navigation Links */}
               {navItems.map((item) => (

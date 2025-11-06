@@ -12,12 +12,6 @@ export function Footer({ onPageChange }: FooterProps) {
       { label: "Tennis", onClick: () => onPageChange('sports') },
       { label: "Cricket", onClick: () => onPageChange('sports') },
     ],
-    casino: [
-      { label: "Live Casino", onClick: () => onPageChange('sports') },
-      { label: "Slots", onClick: () => onPageChange('sports') },
-      { label: "Blackjack", onClick: () => onPageChange('sports') },
-      { label: "Roulette", onClick: () => onPageChange('sports') },
-    ],
     esports: [
       { label: "CS:GO", onClick: () => onPageChange('sports') },
       { label: "Dota 2", onClick: () => onPageChange('sports') },
@@ -41,14 +35,14 @@ export function Footer({ onPageChange }: FooterProps) {
   return (
     <footer className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Logo and description */}
           <div className="col-span-2">
             <h3 className="text-2xl font-bold text-green-400 mb-4">
               StackBet<span className="text-yellow-400">.io</span>
             </h3>
             <p className="text-gray-400 text-sm mb-4">
-              The ultimate sports betting experience with competitive odds, live betting, casino games, and esports action.
+              The ultimate sports betting experience with competitive odds, live betting, and esports action.
             </p>
             <div className="flex space-x-4">
               <button className="text-gray-400 hover:text-white">📱</button>
@@ -76,24 +70,6 @@ export function Footer({ onPageChange }: FooterProps) {
             </ul>
           </div>
 
-          {/* Casino */}
-          <div className="col-span-1">
-            <h4 className="font-bold text-white mb-4 flex items-center gap-2">
-              ⭐ Casino
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.casino.map((link, index) => (
-                <li key={index}>
-                  <button
-                    onClick={link.onClick}
-                    className="text-gray-400 hover:text-purple-400 text-sm transition-colors"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Esports */}
           <div className="col-span-1">
@@ -155,7 +131,6 @@ export function Footer({ onPageChange }: FooterProps) {
               <div className="flex flex-wrap gap-2">
                 <span className="text-xs bg-gray-700 px-2 py-1 rounded">💳 Visa</span>
                 <span className="text-xs bg-gray-700 px-2 py-1 rounded">💳 Mastercard</span>
-                <span className="text-xs bg-gray-700 px-2 py-1 rounded">🍎 Apple Pay</span>
                 <span className="text-xs bg-gray-700 px-2 py-1 rounded">🏦 Bank Transfer</span>
               </div>
             </div>
@@ -183,7 +158,7 @@ export function Footer({ onPageChange }: FooterProps) {
         <div className="border-t border-gray-800 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2024 stackbet.io. All rights reserved.
+              © 2025 stackbet.io. All rights reserved.
             </p>
             <div className="flex space-x-4 mt-4 md:mt-0">
               <span className="text-gray-400 text-sm">🔒 SSL Secured</span>
