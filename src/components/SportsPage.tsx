@@ -71,8 +71,8 @@ export function SportsPage({ onAddBet, onOpenBetSlip, isLoggedIn, onPageChange }
   // Promotions for sidebar
   const promotions = [
     { id: "promo1", title: "Bet £10 Get £30 Free", description: "New customers only", badge: "New" },
-    { id: "promo2", title: "Weekend Odds Boost", description: "Enhanced odds on football", badge: "Hot" },
-    { id: "promo3", title: "Live Casino Cashback", description: "10% cashback on losses", badge: "Popular" }
+    { id: "promo2", title: "Weekend Odds Boost", description: "Enhanced odds on football", badge: "Hot" }
+    
   ];
 
   const sportsData = {

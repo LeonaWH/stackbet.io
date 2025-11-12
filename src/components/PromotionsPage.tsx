@@ -192,43 +192,7 @@ export function PromotionsPage({ user, referralCode }: PromotionsPageProps) {
           </div>
         </div>
       </section>
-
-      {/* VIP Program Info */}
-      <section className="py-16 bg-gradient-to-r from-purple-900 to-purple-800">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <Star className="w-16 h-16 text-yellow-400 mx-auto mb-6" />
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Join Our VIP Program
-          </h2>
-          <p className="text-xl text-purple-100 mb-8">
-            Unlock exclusive features, higher betting limits, and priority support
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-purple-800/50 p-6 rounded-lg">
-              <div className="text-3xl mb-2">🏆</div>
-              <h3 className="font-bold text-white mb-2">Bronze Level</h3>
-              <p className="text-purple-200">Total bets: $0 - $500</p>
-            </div>
-            <div className="bg-purple-700/50 p-6 rounded-lg border-2 border-yellow-400">
-              <div className="text-3xl mb-2">🥈</div>
-              <h3 className="font-bold text-white mb-2">Silver Level</h3>
-              <p className="text-purple-200">Total bets: $500 - $2,000</p>
-            </div>
-            <div className="bg-purple-600/50 p-6 rounded-lg">
-              <div className="text-3xl mb-2">🥇</div>
-              <h3 className="font-bold text-white mb-2">Gold Level</h3>
-              <p className="text-purple-200">Total bets: $2,000+</p>
-            </div>
-          </div>
-          <Button 
-            size="lg"
-            className="bg-yellow-400 text-black hover:bg-yellow-300 px-8 py-4 font-bold"
-          >
-            Start VIP Journey
-          </Button>
-        </div>
-      </section>
-
+      
       {/* Terms Section */}
       <section className="py-12 bg-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
